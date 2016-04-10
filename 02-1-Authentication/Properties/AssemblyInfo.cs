@@ -12,11 +12,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("02-Basics")]
+[assembly: AssemblyTitle("02-1-Authentication")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("02-Basics")]
+[assembly: AssemblyProduct("02-1-Authentication")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -29,7 +29,7 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 
-[assembly: Guid("889442eb-b21c-4eef-83fd-bcfd9b168df4")]
+[assembly: Guid("1365ec7f-ddfc-4831-9a8f-4533f3b3bfa0")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{889442EB-B21C-4EEF-83FD-BCFD9B168DF4}</ProjectGuid>
+    <ProjectGuid>{1365EC7F-DDFC-4831-9A8F-4533F3B3BFA0}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>_02_Basics</RootNamespace>
-    <AssemblyName>02-Basics</AssemblyName>
+    <RootNamespace>_02_1_Authentication</RootNamespace>
+    <AssemblyName>02-1-Authentication</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

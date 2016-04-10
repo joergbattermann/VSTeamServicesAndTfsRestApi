@@ -10,7 +10,7 @@ using Microsoft.TeamFoundation.WorkItemTracking.WebApi;
 using Microsoft.VisualStudio.Services.Client;
 using Microsoft.VisualStudio.Services.Common;
 
-namespace _02_Basics
+namespace _02_1_Authentication
 {
     public class Program
     {
@@ -21,9 +21,6 @@ namespace _02_Basics
         {
             var visualStudioServicesConnection = new VssConnection(new Uri(TeamProjectCollectionUri), new VssCredentials());
             var workItemTrackingHttpClient = visualStudioServicesConnection.GetClient<WorkItemTrackingHttpClient>();
-            var workItemInstance = workItemTrackingHttpClient.GetWorkItemAsync(1).Result;
-
-            Console.WriteLine("Work Item {0} - '{1}' retrieved", workItemInstance.Id, workItemInstance.Fields["System.Title"]);
         }
     }
 }
