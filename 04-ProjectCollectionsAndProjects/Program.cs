@@ -24,7 +24,7 @@ namespace _04_ProjectCollectionsAndProjects
 
             // get ahold of the Project Collection client
             var projectCollectionHttpClient = visualStudioServicesConnection.GetClient<ProjectCollectionHttpClient>();
-
+            
             // iterate over the first 10 Project Collections (I am allowed to see)
             // however, if no parameter(s) were provided to the .GetProjectCollections() method, it would only retrieve one Collection,
             // so basically this allows / provides fine-grained pagination control
@@ -41,6 +41,21 @@ namespace _04_ProjectCollectionsAndProjects
                     projectCollection.Id,
                     webUrlForProjectCollection.Href,
                     projectCollection.Url);
+
+                // Iterate down into the Project Collection's Projects
+
+                // first we need to create a new connection based on the current Projec Collections 'web' Url
+                var projectVssConnection = new VssConnection(new Uri(webUrlForProjectCollection.Href), new VssCredentials());
+
+                // and retrieve the corresponding project client 
+                var projectHttpClient = projectVssConnection.GetClient<ProjectHttpClient>();
+
+                // then - same as above.. iterate over the project references (with a hard-coded pagination of the first 10 entries only)
+                foreach (var projectReference in projectHttpClient.GetProjects(top: 10, skip: 0).Result)
+                {
+                    // and then get ahold of the actual project
+                    var teamProject = projectHttpClient.GetProject(projectReference.Id.ToString()).Result;
+                }
             }
         }
     }
