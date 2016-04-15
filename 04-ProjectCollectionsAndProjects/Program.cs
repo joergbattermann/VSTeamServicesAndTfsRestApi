@@ -33,9 +33,10 @@ namespace _04_ProjectCollectionsAndProjects
                 // retrieve a reference to the actual project collection based on its (reference) .Id
                 var projectCollection = projectCollectionHttpClient.GetProjectCollection(projectCollectionReference.Id.ToString()).Result;
 
+                // the 'web' Url is the one for the PC itself, the API endpoint one is different, see below
                 var webUrlForProjectCollection = projectCollection.Links.Links["web"] as ReferenceLink;
 
-                Console.WriteLine("Project Collection '{0}' (Id: {1}) at Url: '{2}' & API Url: '{3}'",
+                Console.WriteLine("Project Collection '{0}' (Id: {1}) at Web Url: '{2}' & API Url: '{3}'",
                     projectCollection.Name,
                     projectCollection.Id,
                     webUrlForProjectCollection.Href,
