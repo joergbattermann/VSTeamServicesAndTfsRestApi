@@ -34,18 +34,18 @@ namespace _04_ProjectCollectionsAndProjects
                 var projectCollection = projectCollectionHttpClient.GetProjectCollection(projectCollectionReference.Id.ToString()).Result;
 
                 // the 'web' Url is the one for the PC itself, the API endpoint one is different, see below
-                var webUrlForProjectCollection = projectCollection.Links.Links["web"] as ReferenceLink;
+                var urlForProjectCollection = ((ReferenceLink)projectCollection.Links.Links["web"]).Href;
 
                 Console.WriteLine("Project Collection '{0}' (Id: {1}) at Web Url: '{2}' & API Url: '{3}'",
                     projectCollection.Name,
                     projectCollection.Id,
-                    webUrlForProjectCollection.Href,
+                    urlForProjectCollection,
                     projectCollection.Url);
 
                 // Iterate down into the Project Collection's Projects
 
                 // first we need to create a new connection based on the current Projec Collections 'web' Url
-                var projectVssConnection = new VssConnection(new Uri(webUrlForProjectCollection.Href), new VssCredentials());
+                var projectVssConnection = new VssConnection(new Uri(urlForProjectCollection), new VssCredentials());
 
                 // and retrieve the corresponding project client 
                 var projectHttpClient = projectVssConnection.GetClient<ProjectHttpClient>();
@@ -57,6 +57,13 @@ namespace _04_ProjectCollectionsAndProjects
                     var teamProject = projectHttpClient.GetProject(projectReference.Id.ToString()).Result;
                 }
             }
+
+            // or if we already have the project collection url and the project's Id (Guid) upfront, we can access the later directly via:
+            var knownProjectCollectionUrl = @"http://win2012:8080/tfs/DefaultCollection/";
+            var projectVssConnectionForKnownProjectCollection = new VssConnection(new Uri(knownProjectCollectionUrl), new VssCredentials());
+            var projectHttpClientForKnownProjectCollection = projectVssConnectionForKnownProjectCollection.GetClient<ProjectHttpClient>();
+            var knownTeamProject = projectHttpClientForKnownProjectCollection.GetProject("dc68c474-2ce0-4be6-9617-abe97f66ec1e").Result;
+
         }
     }
 }
