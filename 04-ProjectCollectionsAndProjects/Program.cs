@@ -55,6 +55,13 @@ namespace _04_ProjectCollectionsAndProjects
                 {
                     // and then get ahold of the actual project
                     var teamProject = projectHttpClient.GetProject(projectReference.Id.ToString()).Result;
+                    var urlForTeamProject = ((ReferenceLink)teamProject.Links.Links["web"]).Href;
+
+                    Console.WriteLine("Team Project '{0}' (Id: {1}) at Web Url: '{2}' & API Url: '{3}'",
+                        teamProject.Name,
+                        teamProject.Id,
+                        urlForTeamProject,
+                        teamProject.Url);
                 }
             }
 
@@ -62,8 +69,22 @@ namespace _04_ProjectCollectionsAndProjects
             var knownProjectCollectionUrl = @"http://win2012:8080/tfs/DefaultCollection/";
             var projectVssConnectionForKnownProjectCollection = new VssConnection(new Uri(knownProjectCollectionUrl), new VssCredentials());
             var projectHttpClientForKnownProjectCollection = projectVssConnectionForKnownProjectCollection.GetClient<ProjectHttpClient>();
-            var knownTeamProject = projectHttpClientForKnownProjectCollection.GetProject("dc68c474-2ce0-4be6-9617-abe97f66ec1e").Result;
+            var knownTeamProject = projectHttpClientForKnownProjectCollection.GetProject("dc68c474-2ce0-4be6-9617-abe97f66ec1e", includeCapabilities: true).Result;
 
+            // check whether Project uses Git or TFS Version Control
+            if (knownTeamProject.Capabilities.ContainsKey("versioncontrol") && knownTeamProject.Capabilities["versioncontrol"].ContainsKey("sourceControlType"))
+            {
+                Console.WriteLine("{0} is used!", knownTeamProject.Capabilities["versioncontrol"]["sourceControlType"]);
+            }
+
+            // 'processTemplate' is apparently only an existing capability IF you use the standard templates (Agile, Scrum, CMMI)
+            // and /or your custom Process Template provides proper Process Configurations (which earlier versions of TFS did not have)
+            if (knownTeamProject.Capabilities.ContainsKey("processTemplate"))
+            {
+                Console.WriteLine("Process Template '{0}' (Id: '{1}') is used!",
+                    knownTeamProject.Capabilities["processTemplate"]["templateName"],
+                    knownTeamProject.Capabilities["processTemplate"]["templateTypeId"]);
+            }
         }
     }
 }
