@@ -71,6 +71,8 @@ namespace _04_ProjectCollectionsAndProjects
             var projectHttpClientForKnownProjectCollection = projectVssConnectionForKnownProjectCollection.GetClient<ProjectHttpClient>();
             var knownTeamProject = projectHttpClientForKnownProjectCollection.GetProject("dc68c474-2ce0-4be6-9617-abe97f66ec1e", includeCapabilities: true).Result;
 
+            Console.WriteLine("Default Team is: '{0}' (Id: {1})", knownTeamProject.DefaultTeam.Name, knownTeamProject.DefaultTeam.Id);
+
             // check whether Project uses Git or TFS Version Control
             if (knownTeamProject.Capabilities.ContainsKey("versioncontrol") && knownTeamProject.Capabilities["versioncontrol"].ContainsKey("sourceControlType"))
             {
