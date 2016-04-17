@@ -17,7 +17,7 @@ using Microsoft.VisualStudio.Services.WebApi;
 
 namespace _04_ProjectCollectionsAndProjects
 {
-    public class Program
+    public static class Program
     {
         const string BaseUri = @"http://win2012:8080/tfs/"; // In my case this is a locally running development TFS (2015 Update 2) system
 

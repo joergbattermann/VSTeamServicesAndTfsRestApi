@@ -12,7 +12,7 @@ using Microsoft.VisualStudio.Services.Common;
 
 namespace _02_Basics
 {
-    public class Program
+    public static class Program
     {
         const string TeamProjectCollectionUri = @"http://win2012:8080/tfs/DefaultCollection"; // In my case this is a locally running development TFS (2015 Update 2) system
         const int WorkItemIdentifier = 1; // This is the Work Item .Id which we will be retrieving
