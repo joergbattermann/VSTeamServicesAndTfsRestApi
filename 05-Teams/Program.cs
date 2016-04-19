@@ -16,7 +16,7 @@ namespace _05_Teams
 
         static void Main(string[] args)
         {
-            // instantiate a vss connection using the BaseUri (not the Project Collection Uri!)
+            // instantiate a vss connection using the Project Collection URI as Base Uri
             var visualStudioServicesConnection = new VssConnection(new Uri(TeamProjectCollectionUri), new VssCredentials());
 
             // Get a Team client
@@ -44,7 +44,7 @@ namespace _05_Teams
                 Name = $"My new Team {somewhatRandomValueForTeamName}"
             };
 
-            // once we've prepared the team
+            // once we've prepared the team instance, we call the api endpoint using the teamHttpClient
             var newlyCreatedTeam = teamHttpClient.CreateTeamAsync(newTeam, ProjectId).Result;
 
             Console.WriteLine("Team '{0}' (Id: {1}) created", newlyCreatedTeam.Name, newlyCreatedTeam.Id);
