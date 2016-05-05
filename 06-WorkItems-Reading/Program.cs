@@ -36,7 +36,7 @@ namespace _06_WorkItems_Reading
 
             // same as not specifying an 'expand' parameter at all - .Relations is 'null'
             var workItemExcludingRelations = workItemTrackingHttpClient.GetWorkItemAsync(ExistingWorkItemId).Result;
-
+            
 
             // 2. Retrieve multiple Work Items by their .Ids
             // #############################
@@ -111,8 +111,6 @@ namespace _06_WorkItems_Reading
                     throw new InvalidOperationException($"Well this is odd - QueryHierarchyItem '{storedQueryItem.Id}' is neither a folder, nor a query");
                 }
             }
-
-            var relationTypes = workItemTrackingHttpClient.GetRelationTypesAsync().Result;
         }
     }
 }
