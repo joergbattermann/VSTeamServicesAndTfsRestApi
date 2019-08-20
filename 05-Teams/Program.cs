@@ -2,6 +2,7 @@
 using Microsoft.TeamFoundation.Core.WebApi;
 using Microsoft.VisualStudio.Services.Client;
 using Microsoft.VisualStudio.Services.Common;
+using Microsoft.VisualStudio.Services.WebApi;
 
 namespace _05_Teams
 {
@@ -25,7 +26,7 @@ namespace _05_Teams
             // Retrieve existing Team(s)
             // ##############################
             // First lets retrieve the teams (first 10 again) for the given Project(Id)
-            var allTeams = teamHttpClient.GetTeamsAsync(ProjectId, 10, 0).Result;
+            var allTeams = teamHttpClient.GetTeamsAsync(ProjectId, top: 10, skip: 0).Result;
             foreach (var team in allTeams)
             {
                 Console.WriteLine("Team '{0}' (Id: {1})", team.Name, team.Id);
@@ -52,9 +53,9 @@ namespace _05_Teams
             // Retrieve Team Members
             // ##############################
             Console.WriteLine("Team with Id '{0}' contains the following member(s)", TeamIdKnownToContainMembers);
-            foreach (var identityReference in teamHttpClient.GetTeamMembersAsync(ProjectId, TeamIdKnownToContainMembers, 10, 0) .Result)
+            foreach (var identityReference in teamHttpClient.GetTeamMembersWithExtendedPropertiesAsync(ProjectId, TeamIdKnownToContainMembers, 10, 0).Result)
             {
-                Console.WriteLine("-- '{0}' (Id: {1})", identityReference.DisplayName, identityReference.Id);
+                Console.WriteLine("-- '{0}' (Id: {1})", identityReference.Identity.DisplayName, identityReference.Identity.Id);
             }
             
             // Delete Team(s)
